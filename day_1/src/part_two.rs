@@ -144,3 +144,137 @@ impl<'a> PartTwo<'a> {
         two_digit_number
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_find_lowest_index_number_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartTwo::find_lowest_index_number_from_str(string_one);
+        assert_eq!(result_one, Some((6, 7)));
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartTwo::find_lowest_index_number_from_str(string_two);
+        assert_eq!(result_two, Some((9, 6)));
+
+        let string_three = "fx3";
+        let result_three = PartTwo::find_lowest_index_number_from_str(string_three);
+        assert_eq!(result_three, None);
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartTwo::find_lowest_index_number_from_str(string_four);
+        assert_eq!(result_four, Some((9, 9)));
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartTwo::find_lowest_index_number_from_str(string_five);
+        assert_eq!(result_five, Some((8, 20)));
+    }
+
+    #[test]
+    fn test_find_highest_index_number_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartTwo::find_highest_index_number_from_str(string_one);
+        assert_eq!(result_one, Some((6, 7)));
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartTwo::find_highest_index_number_from_str(string_two);
+        assert_eq!(result_two, Some((9, 24)));
+
+        let string_three = "fx3";
+        let result_three = PartTwo::find_highest_index_number_from_str(string_three);
+        assert_eq!(result_three, None);
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartTwo::find_highest_index_number_from_str(string_four);
+        assert_eq!(result_four, Some((7, 13)));
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartTwo::find_highest_index_number_from_str(string_five);
+        assert_eq!(result_five, Some((2, 40)));
+    }
+
+    #[test]
+    fn test_find_lowest_index_int_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartTwo::find_lowest_index_int_from_str(string_one);
+        assert_eq!(result_one, Some((7, 0)));
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartTwo::find_lowest_index_int_from_str(string_two);
+        assert_eq!(result_two, Some((4, 23)));
+
+        let string_three = "fx3";
+        let result_three = PartTwo::find_lowest_index_int_from_str(string_three);
+        assert_eq!(result_three, Some((3, 2)));
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartTwo::find_lowest_index_int_from_str(string_four);
+        assert_eq!(result_four, Some((8, 0)));
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartTwo::find_lowest_index_int_from_str(string_five);
+        assert_eq!(result_five, Some((7, 0)));
+    }
+
+    #[test]
+    fn test_find_highest_index_int_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartTwo::find_highest_index_int_from_str(string_one);
+        assert_eq!(result_one, Some((9, 21)));
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartTwo::find_highest_index_int_from_str(string_two);
+        assert_eq!(result_two, Some((3, 30)));
+
+        let string_three = "fx3";
+        let result_three = PartTwo::find_highest_index_int_from_str(string_three);
+        assert_eq!(result_three, Some((3, 3)));
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartTwo::find_highest_index_int_from_str(string_four);
+        assert_eq!(result_four, Some((8, 1)));
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartTwo::find_highest_index_int_from_str(string_five);
+        assert_eq!(result_five, Some((6, 20)));
+    }
+
+    #[test]
+    fn test_get_first_last_int_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartTwo::get_first_last_int_from_str(string_one);
+        assert_eq!(result_one, 79);
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartTwo::get_first_last_int_from_str(string_two);
+        assert_eq!(result_two, 93);
+
+        let string_three = "fx3";
+        let result_three = PartTwo::get_first_last_int_from_str(string_three);
+        assert_eq!(result_three, 33);
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartTwo::get_first_last_int_from_str(string_four);
+        assert_eq!(result_four, 87);
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartTwo::get_first_last_int_from_str(string_five);
+        assert_eq!(result_five, 72);
+    }
+
+    #[test]
+    fn test_run() {
+        let calibration_values = vec![
+            "7jlncfksix7rjgrpglmn9".to_string(),
+            "vcgkgxninerqjltdbhqzzpd4nine23".to_string(),
+            "fx3".to_string(),
+            "8nrbjbpjpnineseven".to_string(),
+            "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo".to_string(),
+        ];
+        let part_two = PartTwo::new(&calibration_values);
+        let result = part_two.run();
+        assert_eq!(result, 364);
+    }
+}

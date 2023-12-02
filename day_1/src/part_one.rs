@@ -50,3 +50,45 @@ impl<'a> PartOne<'a> {
         two_digit_number
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_get_first_last_int_from_str() {
+        let string_one = "7jlncfksix7rjgrpglmn9";
+        let result_one = PartOne::get_first_last_int_from_str(string_one);
+        assert_eq!(result_one, 79);
+
+        let string_two = "vcgkgxninerqjltdbhqzzpd4nine23";
+        let result_two = PartOne::get_first_last_int_from_str(string_two);
+        assert_eq!(result_two, 43);
+
+        let string_three = "fx3";
+        let result_three = PartOne::get_first_last_int_from_str(string_three);
+        assert_eq!(result_three, 33);
+
+        let string_four = "8nrbjbpjpnineseven";
+        let result_four = PartOne::get_first_last_int_from_str(string_four);
+        assert_eq!(result_four, 88);
+
+        let string_five = "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo";
+        let result_five = PartOne::get_first_last_int_from_str(string_five);
+        assert_eq!(result_five, 76);
+    }
+
+    #[test]
+    fn test_run() {
+        let calibration_values = vec![
+            "7jlncfksix7rjgrpglmn9".to_string(),
+            "vcgkgxninerqjltdbhqzzpd4nine23".to_string(),
+            "fx3".to_string(),
+            "8nrbjbpjpnineseven".to_string(),
+            "7qlfhcsnxn7fpfhjcgr6eightsevenjlpchjtzpztwo".to_string(),
+        ];
+        let part_one = PartOne::new(&calibration_values);
+        let result = part_one.run();
+        assert_eq!(result, 79 + 43 + 33 + 88 + 76);
+    }
+}
