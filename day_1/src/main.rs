@@ -23,4 +23,31 @@ fn main() {
     let part_two = PartTwo::new(&calibration_data);
     let part_two_result = part_two.run();
     println!("Part Two Result: {}", part_two_result);
+    david_main();
+}
+
+fn david_main() {
+    let calibration_document = read_file_to_vector("./input.txt");
+
+    let sum: u32 = calibration_document
+        .iter()
+        .map(|line| {
+            let first_digit = line
+                .chars()
+                .find(|c| c.is_digit(10))
+                .and_then(|c| c.to_digit(10));
+            let last_digit = line
+                .chars()
+                .rev()
+                .find(|c| c.is_digit(10))
+                .and_then(|c| c.to_digit(10));
+
+            match (first_digit, last_digit) {
+                (Some(first), Some(last)) => first * 10 + last,
+                _ => 0,
+            }
+        })
+        .sum();
+
+    println!("The sum of all calibration values is: {}", sum);
 }
