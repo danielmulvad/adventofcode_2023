@@ -93,9 +93,57 @@ Here are the distances for each tile on that loop:
 23...
 Find the single giant loop starting at S. How many steps along the loop does it take to get from the starting position to the point farthest from the starting position?
 */
+
+use std::collections::{HashMap, VecDeque};
+
 #[tracing::instrument(skip(input))]
 pub fn run(input: &str) -> i32 {
-    0
+    let contents = input.to_string();
+    let grid: Vec<Vec<char>> = contents
+        .trim()
+        .split('\n')
+        .map(|line| line.chars().collect())
+        .collect();
+
+    let mut start = (0, 0);
+    for (y, row) in grid.iter().enumerate() {
+        if let Some(x) = row.iter().position(|&c| c == 'S') {
+            start = (x, y);
+            break;
+        }
+    }
+
+    let mut poly = Vec::new();
+    let mut queue = VecDeque::new();
+    let mut distances = HashMap::new();
+    queue.push_back(start);
+    distances.insert(start, 0);
+
+    while let Some((x, y)) = queue.pop_front() {
+        poly.push((x, y));
+        let distance = distances[&(x, y)];
+        let neighbors = [
+            (x + 1, y, "-LFS", "-J7"),
+            (x - 1, y, "-J7S", "-LF"),
+            (x, y + 1, "|F7S", "|LJ"),
+            (x, y - 1, "|LJS", "|F7"),
+        ];
+
+        for &(u, v, f, g) in &neighbors {
+            if v < grid.len()
+                && u < grid[v].len()
+                && f.contains(grid[y][x])
+                && g.contains(grid[v][u])
+            {
+                if !distances.contains_key(&(u, v)) {
+                    queue.push_back((u, v));
+                    distances.insert((u, v), distance + 1);
+                }
+            }
+        }
+    }
+
+    *distances.values().max().unwrap()
 }
 
 #[cfg(test)]
@@ -107,6 +155,6 @@ mod tests {
     fn part_1() {
         let input = include_str!("../test_data.txt");
         let output = run(input);
-        assert_eq!(output, 114);
+        assert_eq!(output, 4);
     }
 }
